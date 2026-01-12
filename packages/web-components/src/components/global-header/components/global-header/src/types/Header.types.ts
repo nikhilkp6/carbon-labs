@@ -30,6 +30,18 @@ export type Profile = {
   displayName: string;
 };
 
+export interface HeaderNavigationItem {
+  label: string;
+  href: string;
+  isActive?: boolean;
+  onClick?: (e: Event) => void;
+}
+
+export interface HeaderNavigation {
+  ariaLabel?: string;
+  items: HeaderNavigationItem[];
+}
+
 export type HelperLinks = {
   link?: string;
   label: string;
@@ -271,6 +283,7 @@ export type SidekickConfig = {
 export interface HeaderProps {
   brand?: Brand;
   capabilityName?: { label: string };
+  headerNavigation?: HeaderNavigation;
   profile?: Profile;
   sideNav?: SideNav;
   arialLabel?: string;

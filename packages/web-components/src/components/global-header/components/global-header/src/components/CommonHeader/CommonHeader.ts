@@ -155,17 +155,25 @@ export class CommonHeader extends LitElement {
       <cds-custom-header
         class="${AUTOMATION_NAMESPACE_PREFIX}__header"
         aria-label="IBM webMethods Hybrid Integration">
-        <cds-custom-header-menu-button
-          id="${APP_SWITCHER_BUTTON_ID}"
-          button-label-active="Close menu"
-          button-label-inactive="Open menu"></cds-custom-header-menu-button>
-        <cds-custom-header-name
-          class="${AUTOMATION_NAMESPACE_PREFIX}__header-name"
-          prefix="${this.headerProps?.brand?.company ?? 'IBM'}">
-          <span class="${AUTOMATION_NAMESPACE_PREFIX}__product-type"
-            >${this.headerProps?.brand?.product ?? nothing}</span
-          >
-        </cds-custom-header-name>
+        ${this.headerProps?.sideNav || this.headerProps?.headerNavigation?.items?.length
+          ? html`
+              <cds-custom-header-menu-button
+                id="${APP_SWITCHER_BUTTON_ID}"
+                button-label-active="Close menu"
+                button-label-inactive="Open menu"></cds-custom-header-menu-button>
+            `
+          : nothing }
+        <a
+          href="${this?.headerProps?.brand?.href}"
+          class="${AUTOMATION_NAMESPACE_PREFIX}__header-name">
+          <cds-custom-header-name
+            class="${AUTOMATION_NAMESPACE_PREFIX}__header-name"
+            prefix="${this.headerProps?.brand?.company ?? 'IBM'}">
+            <span class="${AUTOMATION_NAMESPACE_PREFIX}__product-type"
+              >${this.headerProps?.brand?.product ?? nothing}</span
+            >
+          </cds-custom-header-name>
+        </a>
         <span class="${AUTOMATION_NAMESPACE_PREFIX}__capability-name"
           >${this.headerProps?.capabilityName?.label ?? nothing}</span
         >

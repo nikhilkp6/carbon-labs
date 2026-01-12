@@ -15,6 +15,14 @@
 
 .#{automation.$namespace-prefix}__header-name {
   margin: 0 0 0 -0.5rem;
+  // When used as an anchor tag
+  &[href] {
+    color: var(--cds-text-primary, #f4f4f4);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    transition: color 110ms;
+  }
 }
 
 .#{automation.$namespace-prefix}__capability-name {
@@ -40,4 +48,18 @@
 
 .#{automation.$namespace-prefix}__side-nav-items {
   overflow: auto;
+}
+
+.#{automation.$namespace-prefix}__header-name {
+  // Adjust header name on mobile
+  @media (max-width: 42rem) {
+    font-size: 0.875rem;
+    
+    &[href] {
+      max-width: 12rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
 }
