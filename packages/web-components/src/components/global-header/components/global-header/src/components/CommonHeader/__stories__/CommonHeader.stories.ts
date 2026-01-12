@@ -512,3 +512,73 @@ export const Search: Story = {
 		</div>
 	`,
 };
+
+export const WithNavigation: Story = {
+  render: () => html`
+		<div role="main">
+			<clabs-global-header-apaas .headerProps="${{
+        ...headerPropsWithHelpLinks,
+        brand: {
+          company: 'IBM',
+          product: 'Automation Explorer',
+          href: '/',
+        },
+        headerNavigation: {
+          ariaLabel: 'Main navigation',
+          items: [
+            {
+              label: 'Discover',
+              href: '/',
+              isActive: true,
+            },
+            {
+              label: 'Connector Development Kit',
+              href: '/cdk',
+              isActive: false,
+            },
+          ],
+        },
+      }}"></clabs-global-header-apaas>
+		</div>
+	`,
+};
+
+export const WithNavigationAndClickHandler: Story = {
+  render: () => html`
+		<div role="main">
+			<clabs-global-header-apaas .headerProps="${{
+        ...headerPropsWithHelpLinks,
+        brand: {
+          company: 'IBM',
+          product: 'Automation Explorer',
+          href: '/',
+        },
+        headerNavigation: {
+          ariaLabel: 'Main navigation',
+          items: [
+            {
+              label: 'Discover',
+              href: '/',
+              isActive: true,
+              onClick: (e: Event) => {
+                e.preventDefault();
+                console.log('Discover clicked');
+                alert('Navigating to Discover (prevented default)');
+              },
+            },
+            {
+              label: 'Connector Development Kit',
+              href: '/cdk',
+              isActive: false,
+              onClick: (e: Event) => {
+                e.preventDefault();
+                console.log('CDK clicked');
+                alert('Navigating to CDK (prevented default)');
+              },
+            },
+          ],
+        },
+      }}"></clabs-global-header-apaas>
+  </div>
+ `,
+};

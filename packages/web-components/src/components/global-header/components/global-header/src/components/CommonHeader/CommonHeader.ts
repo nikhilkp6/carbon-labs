@@ -59,6 +59,11 @@ export class CommonHeader extends LitElement {
   @state()
   solisScriptLoaded = false;
 
+  @state()
+  private isMobileView = false;
+
+  private resizeObserver?: ResizeObserver;
+
   handleNavItemClick = (e: Event) => {
     if (this.headerProps?.sideNav?.onClick) {
       this.headerProps?.sideNav?.onClick?.(e);
@@ -177,34 +182,96 @@ export class CommonHeader extends LitElement {
         <span class="${AUTOMATION_NAMESPACE_PREFIX}__capability-name"
           >${this.headerProps?.capabilityName?.label ?? nothing}</span
         >
+        <!-- ADD NAVIGATION HERE -->
+        ${this.headerProps?.headerNavigation?.items?.length
+          ? html`
+              <nav 
+                aria-label="${this.headerProps.headerNavigation.ariaLabel ?? 'Navigation'}"
+                class="${AUTOMATION_NAMESPACE_PREFIX}__header__nav">
+                <ul class="${AUTOMATION_NAMESPACE_PREFIX}__header__menu-bar">
+                  ${this.headerProps.headerNavigation.items.map((item) => html`
+                    <li>
+                      <a
+                        href="${item.href}"
+                        ?aria-current="${item.isActive}"
+                        class="${cx(
+                          `${AUTOMATION_NAMESPACE_PREFIX}__header__menu-item`,
+                          {
+                            [`${AUTOMATION_NAMESPACE_PREFIX}__header__menu-item--current`]: item.isActive
+                          }
+                        )}"
+                        @click="${(e: Event) => {
+                          if (item.onClick) {
+                            item.onClick(e);
+                          }
+                        }}"
+                        tabindex="0">
+                        <span class="${AUTOMATION_NAMESPACE_PREFIX}__text-truncate--end">
+                          ${item.label}
+                        </span>
+                      </a>
+                    </li>
+                  `)}
+                </ul>
+              </nav>
+            `
+          : nothing}
         <clabs-global-header-context
           class="${AUTOMATION_NAMESPACE_PREFIX}__global"
           .props="${{ ...this.headerProps }}"
           .assistMeScriptLoaded="${this.assistMeScriptLoaded}"
           ?hasNewNotifications="${this
             .hasNewNotifications}"></clabs-global-header-context>
-        ${this.headerProps && this.headerProps?.sideNav
+        ${this.headerProps && (this.headerProps?.sideNav || this.headerProps?.headerNavigation?.items?.length)
           ? html`
               <clabs-global-header-wide-side-nav
                 aria-label=${this.headerProps?.sideNav?.buttonLabel ??
                 'Side navigation'}
-                collapse-mode="${typeof this.headerProps.sideNav
+                collapse-mode="${this.headerProps?.sideNav && typeof this.headerProps.sideNav
                   .isCollapsible !== 'undefined' &&
                 this.headerProps.sideNav.isCollapsible
                   ? 'rail'
                   : 'responsive'}"
-                ?is-not-persistent="${typeof this.headerProps.sideNav
+                ?is-not-persistent="${this.headerProps?.sideNav && typeof this.headerProps.sideNav
                   .isCollapsible !== 'undefined' &&
                 this.headerProps.sideNav.isCollapsible
                   ? true
                   : false}"
                 class="${cx({
                   [`${AUTOMATION_NAMESPACE_PREFIX}--rail-sidePanel`]:
-                    typeof this.headerProps.sideNav.isCollapsible !==
+                    this.headerProps?.sideNav && typeof this.headerProps.sideNav.isCollapsible !==
                       'undefined' && !this.headerProps.sideNav.isCollapsible,
+                  [`${AUTOMATION_NAMESPACE_PREFIX}--side-nav-with-header-nav`]:
+                    this.headerProps?.headerNavigation?.items?.length
                 })}">
                 <cds-custom-side-nav-items
                   class="${AUTOMATION_NAMESPACE_PREFIX}__side-nav-items">
+                  <!-- Header navigation items (shown in side nav on mobile) -->
+                  ${this.headerProps?.headerNavigation?.items?.length
+                    ? html`
+                        ${this.headerProps.headerNavigation.items.map((navItem) => html`
+                          <clabs-global-header-side-nav-item
+                            .link="${{
+                              href: navItem?.href,
+                              label: navItem?.label,
+                              isActive: navItem?.isActive,
+                              onClick: navItem?.onClick,
+                              sideNavMenuItems: []
+                            }}"
+                            .isCollapsible="${this.headerProps.sideNav?.isCollapsible}"
+                            .handleNavItemClick="${(e: Event) => {
+                              if (navItem.onClick) {
+                                navItem.onClick(e);
+                              }
+                            }}"
+                            .isSideNavMenuItems="${false}"
+                            .isActive="${navItem.isActive ?? false}"
+                            .menuOpen="${this.isMenuOpen}"
+                            .isOnClickAvailable="${typeof navItem.onClick === 'function'}">
+                          </clabs-global-header-side-nav-item>
+                        `)}
+                      `
+                    : nothing}
                   <!-- sideNav group array render  -->
                   ${this.headerProps?.sideNav?.groups
                     ? html`
@@ -250,7 +317,7 @@ export class CommonHeader extends LitElement {
                     : nothing}
 
                   <!-- sideNav link render -->
-                  ${this.headerProps.sideNav.links &&
+                  ${this.headerProps?.sideNav?.links &&
                   this.headerProps.sideNav.links.length > 0
                     ? html`
                         ${this.headerProps.sideNav?.links?.map((link) => {
