@@ -124,3 +124,9 @@ clabs-global-header-wide-side-nav.#{automation.$namespace-prefix}--side-nav-with
     gap: 0.25rem;
   }
 }
+
+.#{automation.$namespace-prefix}__header-menu-button {
+  @media (min-width: 42rem) {
+    display: none;
+  }
+}

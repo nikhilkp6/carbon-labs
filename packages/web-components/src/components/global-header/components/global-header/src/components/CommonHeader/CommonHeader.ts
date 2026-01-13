@@ -59,11 +59,6 @@ export class CommonHeader extends LitElement {
   @state()
   solisScriptLoaded = false;
 
-  @state()
-  private isMobileView = false;
-
-  private resizeObserver?: ResizeObserver;
-
   handleNavItemClick = (e: Event) => {
     if (this.headerProps?.sideNav?.onClick) {
       this.headerProps?.sideNav?.onClick?.(e);
@@ -160,14 +155,14 @@ export class CommonHeader extends LitElement {
       <cds-custom-header
         class="${AUTOMATION_NAMESPACE_PREFIX}__header"
         aria-label="IBM webMethods Hybrid Integration">
-        ${this.headerProps?.sideNav || this.headerProps?.headerNavigation?.items?.length
+        ${(this.headerProps?.sideNav || this.headerProps?.headerNavigation?.items?.length )
           ? html`
               <cds-custom-header-menu-button
+                class="${cx({ [`${AUTOMATION_NAMESPACE_PREFIX}__header-menu-button`]: this.headerProps?.headerNavigation?.items?.length })}"
                 id="${APP_SWITCHER_BUTTON_ID}"
                 button-label-active="Close menu"
                 button-label-inactive="Open menu"></cds-custom-header-menu-button>
-            `
-          : nothing }
+            ` : nothing }
         <a
           href="${this?.headerProps?.brand?.href}"
           class="${AUTOMATION_NAMESPACE_PREFIX}__header-name">
