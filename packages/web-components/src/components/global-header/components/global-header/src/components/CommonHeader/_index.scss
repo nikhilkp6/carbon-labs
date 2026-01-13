@@ -11,6 +11,19 @@
 
 .#{automation.$namespace-prefix}__header {
   z-index: 8050;
+  max-width: 100%;
+  width: 100%;
+  
+  // Ensure header content doesn't overflow
+  & > * {
+    flex-shrink: 1;
+    min-width: 0;
+  }
+  
+  // Prevent horizontal overflow on small screens
+  @media (max-width: 48rem) {
+    padding-inline: 0.5rem;
+  }
 }
 
 .#{automation.$namespace-prefix}__header-name {
@@ -48,6 +61,10 @@
 
 // Navigation menu styles
 .#{automation.$namespace-prefix}__header__nav {
+  flex-shrink: 1;
+  min-width: 0;
+  overflow: hidden;
+  
   // Hide navigation only on mobile (below tablet), show on tablet and desktop
   @media (max-width: 42rem) {
     display: none;
