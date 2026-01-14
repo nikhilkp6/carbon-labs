@@ -582,3 +582,68 @@ export const WithNavigationAndClickHandler: Story = {
   </div>
  `,
 };
+
+export const WithNavigationAndClickHandlerUnauthenticated: Story = {
+  render: () => html`<div role="main">
+			<clabs-global-header-apaas .headerProps="${{
+        brand: {
+          company: 'IBM',
+          product: 'Automation Explorer',
+          href: '/',
+        },
+        helperLinks: [
+          {
+            link: 'https://ibm.biz/automation-explorer',
+            label: 'Automation Explorer documentation',
+            onclick: () => {
+              window.open('https://ibm.biz/automation-explorer');
+            },
+          },
+          {
+            label: 'Connector Development Kit documentation',
+            onclick: () => {
+              window.open('https://ibm.biz/connector-development-kit');
+            },
+          },
+          {
+            link: 'https://ibm.biz/automationexplorer',
+            label: 'Automation Explorer Community',
+            target: '_blank',
+          },
+        ],
+        noAuthHeaderLinks: [
+          {
+            href: '/login',
+            text: 'Log in',
+            carbonIcon: 'Login',
+            arialLabel: 'Log in',
+          },
+        ],
+        headerNavigation: {
+          ariaLabel: 'Main navigation',
+          items: [
+            {
+              label: 'Discover',
+              href: '/',
+              isActive: true,
+              onClick: (e: Event) => {
+                e.preventDefault();
+                console.log('Discover clicked');
+                alert('Navigating to Discover (prevented default)');
+              },
+            },
+            {
+              label: 'Connector Development Kit',
+              href: '/cdk',
+              isActive: false,
+              onClick: (e: Event) => {
+                e.preventDefault();
+                console.log('CDK clicked');
+                alert('Navigating to CDK (prevented default)');
+              },
+            },
+          ],
+        },
+      }}"></clabs-global-header-apaas>
+  </div>`,
+}

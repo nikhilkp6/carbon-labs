@@ -19,11 +19,6 @@
     flex-shrink: 1;
     min-width: 0;
   }
-  
-  // Prevent horizontal overflow on small screens
-  @media (max-width: 48rem) {
-    padding-inline: 0.5rem;
-  }
 }
 
 .#{automation.$namespace-prefix}__header-name {
