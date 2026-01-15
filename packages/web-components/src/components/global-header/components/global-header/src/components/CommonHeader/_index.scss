@@ -33,6 +33,12 @@
   }
 }
 
+.#{automation.$namespace-prefix}__header-name-with-nav {
+  @media (min-width: 42rem) { // Desktop/tablet on AE header applying margin
+    margin-left: 1.5rem;
+  }
+}
+
 .#{automation.$namespace-prefix}__capability-name {
   color: var(--cds-custom-text-primary);
   font-weight: 400;

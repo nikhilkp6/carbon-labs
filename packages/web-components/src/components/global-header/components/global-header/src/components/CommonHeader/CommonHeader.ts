@@ -165,7 +165,7 @@ export class CommonHeader extends LitElement {
             ` : nothing }
         <a
           href="${this?.headerProps?.brand?.href}"
-          class="${AUTOMATION_NAMESPACE_PREFIX}__header-name">
+          class="${cx(`${AUTOMATION_NAMESPACE_PREFIX}__header-name`, {[`${AUTOMATION_NAMESPACE_PREFIX}__header-name-with-nav`]: this.headerProps?.headerNavigation?.items?.length})}">
           <cds-custom-header-name
             class="${AUTOMATION_NAMESPACE_PREFIX}__header-name"
             prefix="${this.headerProps?.brand?.company ?? 'IBM'}">
