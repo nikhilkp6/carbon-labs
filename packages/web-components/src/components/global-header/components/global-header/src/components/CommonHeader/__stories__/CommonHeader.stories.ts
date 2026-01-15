@@ -625,7 +625,7 @@ export const WithNavigationAndClickHandlerUnauthenticated: Story = {
             {
               label: 'Discover',
               href: '/',
-              isActive: true,
+              isActive: false,
               onClick: (e: Event) => {
                 e.preventDefault();
                 console.log('Discover clicked');
@@ -635,7 +635,7 @@ export const WithNavigationAndClickHandlerUnauthenticated: Story = {
             {
               label: 'Connector Development Kit',
               href: '/cdk',
-              isActive: false,
+              isActive: true,
               onClick: (e: Event) => {
                 e.preventDefault();
                 console.log('CDK clicked');

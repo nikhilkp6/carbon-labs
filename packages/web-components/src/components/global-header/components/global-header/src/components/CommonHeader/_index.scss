@@ -44,8 +44,17 @@
 }
 
 .#{automation.$namespace-prefix}__product-type {
+  display: inline-block;
   white-space: nowrap;
+  
+  // Only truncate on small mobile screens (below 400px)
+  @media (max-width: 25rem) { // 400px
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 12ch; // Approximately 12 characters
+  }
 }
+
 
 .#{automation.$namespace-prefix}__global {
   display: flex;
@@ -59,7 +68,12 @@
   flex-shrink: 1;
   min-width: 0;
   overflow: hidden;
+  block-size: 100%;
   
+  li {
+    block-size: 90%;
+  }
+
   // Hide navigation only on mobile (below tablet), show on tablet and desktop
   @media (max-width: 42rem) {
     display: none;
