@@ -23,6 +23,7 @@
 
 .#{automation.$namespace-prefix}__header-name {
   margin: 0 0 0 -0.5rem;
+  block-size: 100%;
   // When used as an anchor tag
   &[href] {
     color: var(--cds-text-primary, #f4f4f4);
