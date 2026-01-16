@@ -12,6 +12,30 @@
 @use '@carbon/styles/scss/spacing' as *;
 @use '@carbon/react/scss/theme' as *;
 
+// Override Carbon styles for unauthenticated header on mobile/tablet
+@media (max-width: 1056px) {
+  cds-custom-header-nav,
+  .cds-custom--header__menu-bar {
+    display: flex !important;
+    padding-left: 0rem !important;
+  }
+  
+  // Make nav items more compact
+  cds-custom-header-nav-item {
+    padding: 0 0.5rem !important;
+    font-size: 0.8125rem !important;
+    white-space: nowrap !important;
+  }
+}
+
+// Additional mobile responsiveness
+@media (max-width: 42rem) {
+  cds-custom-header-nav-item {
+    padding: 0 0.375rem !important;
+    font-size: 0.75rem !important;
+  }
+}
+
 cds-custom-header-global-action.mcsp-header-user-profile {
   display: flex;
   block-size: 48px;
@@ -225,4 +249,13 @@ cds-custom-header-global-action.mcsp-header-user-profile > div {
   border: 0;
   block-size: max-content;
   min-block-size: max-content;
+}
+
+
+@media (max-width: 1056px) {
+  cds-custom-header-nav,
+  .cds-custom--header__menu-bar {
+    display: flex !important;
+    padding-left: 0rem !important;
+  }
 }

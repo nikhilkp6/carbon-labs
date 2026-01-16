@@ -365,7 +365,8 @@ export class HeaderContext extends LitElement {
         ${this.renderSidekick()} ${this.renderProfile()} ${this.renderSolis()}
       `;
     } else {
-      return html`${!assistMeConfigs ? this.renderHelpMenu() : nothing} <clabs-global-header-unauthenticated-context
+      return html`${!assistMeConfigs ? this.renderHelpMenu() : nothing} 
+      <clabs-global-header-unauthenticated-context
         .noAuthHeaderLinks="${noAuthHeaderLinks}"></clabs-global-header-unauthenticated-context>`;
     }
   }
