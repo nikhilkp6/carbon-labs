@@ -36,6 +36,13 @@
   }
 }
 
+// Remove padding from help menu trigger only on very small screens
+@media (max-width: 25rem) { // 400px
+  cds-custom-header-menu.ibm-automation-cds__help-menu::part(trigger) {
+    padding: 0rem !important;
+  }
+}
+
 cds-custom-header-global-action.mcsp-header-user-profile {
   display: flex;
   block-size: 48px;
